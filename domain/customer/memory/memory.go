@@ -8,18 +8,18 @@ import (
 	"sync"
 )
 
-type Repository struct {
+type MemoryRepository struct {
 	customers map[uuid.UUID]aggregator.Customer
 	sync.Mutex
 }
 
-func New() *Repository {
-	return &Repository{
+func New() *MemoryRepository {
+	return &MemoryRepository{
 		customers: make(map[uuid.UUID]aggregator.Customer),
 	}
 }
 
-func (mr *Repository) Get(id uuid.UUID) (aggregator.Customer, error) {
+func (mr *MemoryRepository) Get(id uuid.UUID) (aggregator.Customer, error) {
 	if customer, ok := mr.customers[id]; ok {
 		return customer, nil
 	}
@@ -27,7 +27,7 @@ func (mr *Repository) Get(id uuid.UUID) (aggregator.Customer, error) {
 	return aggregator.Customer{}, customer.ErrCustomerNotFound
 }
 
-func (mr *Repository) Add(c aggregator.Customer) error {
+func (mr *MemoryRepository) Add(c aggregator.Customer) error {
 	if mr.customers == nil {
 		mr.Lock()
 		mr.customers = make(map[uuid.UUID]aggregator.Customer)
@@ -45,7 +45,7 @@ func (mr *Repository) Add(c aggregator.Customer) error {
 	return nil
 }
 
-func (mr *Repository) Update(c aggregator.Customer) error {
+func (mr *MemoryRepository) Update(c aggregator.Customer) error {
 	if _, ok := mr.customers[c.GetId()]; !ok {
 		return fmt.Errorf("customer not found: %w", customer.ErrFailedToUpdateCustomer)
 	}
