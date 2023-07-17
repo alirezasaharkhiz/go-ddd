@@ -47,7 +47,7 @@ func (mr *MemoryRepository) Add(c aggregator.Customer) error {
 
 func (mr *MemoryRepository) Update(c aggregator.Customer) error {
 	if _, ok := mr.customers[c.GetId()]; !ok {
-		return fmt.Errorf("Customer not found: %w", customer.ErrFailedToUpdateCustomer)
+		return fmt.Errorf("customer not found: %w", customer.ErrFailedToUpdateCustomer)
 	}
 
 	mr.Lock()
