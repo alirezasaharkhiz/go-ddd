@@ -1,4 +1,4 @@
-package memory
+package repository
 
 import (
 	"ddd/aggregator"
@@ -13,7 +13,7 @@ type MemoryRepository struct {
 	sync.Mutex
 }
 
-func New() *MemoryRepository {
+func NewCustomerMemoryRepository() *MemoryRepository {
 	return &MemoryRepository{
 		customers: make(map[uuid.UUID]aggregator.Customer),
 	}
