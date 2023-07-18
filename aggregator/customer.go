@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	ErrInvalidPerson = errors.New("Customer must have a name!!!")
+	ErrInvalidPerson = errors.New("customer must have a name")
 )
 
 type Customer struct {
