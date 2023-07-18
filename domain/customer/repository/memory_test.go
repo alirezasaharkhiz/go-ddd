@@ -22,7 +22,7 @@ func TestMemory_GetCustomer(t *testing.T) {
 
 	id := cust.GetId()
 
-	mr := MemoryRepository{
+	mr := CustomerMemoryRepository{
 		customers: map[uuid.UUID]aggregator.Customer{
 			id: cust,
 		},
